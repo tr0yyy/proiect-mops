@@ -14,20 +14,17 @@ import java.util.Optional;
 @Service
 public class ArticolService {
     private final ArticolRepository articolRepository;
-    private final UserRepository userRepository;
     private final UserService userService;
     
     @Autowired
-    public ArticolService(ArticolRepository articolRepository, UserRepository userRepository, UserService userService) {
+    public ArticolService(ArticolRepository articolRepository, UserService userService) {
         this.articolRepository = articolRepository;
-        this.userRepository = userRepository;
         this.userService = userService;
     }
 
     public void createAndInsertArticol(String userEmail, String category, String title, String content, String version) {
         try {
             Optional<User> optionalUser = userService.getUserByEmail(userEmail);
-
 
             if (optionalUser.isPresent()) {
                 User existingUser = optionalUser.get();
@@ -49,8 +46,8 @@ public class ArticolService {
         return articolRepository.findAll();
     }
 
-    public Optional<Articol> getArticolById(String id) {
-        return articolRepository.findById(id);
+    public Articol getArticolByTitle(String title) {
+        return articolRepository.findByTitlu(title);
     }
 
 
