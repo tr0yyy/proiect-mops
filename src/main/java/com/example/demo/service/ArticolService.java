@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class ArticolService {
-    private final ArticolRepository articolRepository;
+    public final ArticolRepository articolRepository;
     private final UserService userService;
     
     @Autowired

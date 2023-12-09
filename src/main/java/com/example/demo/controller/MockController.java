@@ -16,7 +16,7 @@ public class MockController {
         this.mockService = mockService;
     }
 
-    @PostMapping("/mock-entries")
+    @PostMapping("/core/mock-entries")
     public ResponseEntity<ResponseDto> mockEntries() {
         Articol articol = this.mockService.insertDemoMocksInDb();
         if (articol == null) {
