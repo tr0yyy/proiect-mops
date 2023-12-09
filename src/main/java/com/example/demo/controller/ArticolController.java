@@ -75,12 +75,12 @@ public class ArticolController {
 	@PostMapping("/create")
 	public ResponseEntity<ArticolDTO> createArticle(@RequestBody Articol article) {
 		Object response = this.articolService.createArticle(article);
-		return ResponseEntity.ok(new ArticolDTO(true, response));
+		return ResponseEntity.ok((ArticolDTO) response);
 	}
 	
 	@PostMapping("/update-articol")
 	public ResponseEntity<ArticolDTO> updateArticle(@RequestBody Articol article) {
 		Object response = this.articolService.updateArticol(article);
-		return ResponseEntity.ok(new ArticolDTO(true, response));
+		return ResponseEntity.ok((ArticolDTO) response);
 	}
 }

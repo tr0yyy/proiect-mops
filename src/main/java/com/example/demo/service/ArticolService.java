@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.ArticolDTO;
 import com.example.demo.model.Articol;
 import com.example.demo.model.User;
 import com.example.demo.repository.ArticolRepository;
@@ -7,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 @Service
 public class ArticolService {
@@ -43,14 +47,14 @@ public class ArticolService {
                 articolRepository.save(articol);
             } else {
                 // Handle the case where the user with the specified email is not found.
-                return "User not found for email: " + userEmail;
+                return new ArticolDTO(false, "User not found for email: " + userEmail);
             }
         } catch (Exception e) {
             // Handle the exception as per your application's requirements.
             // You may want to log the exception, return an error response, etc.
-            return e;
+            return new ArticolDTO(false,e);
         }
-        return "Article created successfully";
+        return new ArticolDTO(true,"Article created successfully");
     }
     
     public Object updateArticol(Articol article) {
@@ -70,7 +74,7 @@ public class ArticolService {
                     existingUser = optionalUser.get();
                 } else {
                     // Handle the case where the user with the specified email is not found.
-                    return "User not found for email: " + userEmail;
+                    return new ArticolDTO(false,"User not found for email: " + userEmail);
                 }
                 // Update the properties of the existing article
                 existingArticol.setAutor(existingUser);
@@ -83,10 +87,10 @@ public class ArticolService {
                 // Save the updated article back to the repository
                 articolRepository.save(existingArticol);
                 
-                return "Article updated successfully";
+                return new ArticolDTO(true,"Article updated successfully");
             } else {
                 // Handle the case where the article with the specified ID is not found.
-                return "Article not found for ID: " + article.getId();
+                return new ArticolDTO(false,"Article not found for ID: " + article.getId());
             }
         } catch (Exception e) {
             // Handle the exception as per your application's requirements.
