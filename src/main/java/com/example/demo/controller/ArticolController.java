@@ -20,13 +20,13 @@ public class ArticolController {
 		this.articolService = articolService;
 	}
 	
-	@GetMapping("/all")
+	@GetMapping("/core/all")
 	public ResponseEntity<ArticolDTO> getAllArticles() {
 		List<Articol> articles = this.articolService.getAllArticles();
 		return ResponseEntity.ok(new ArticolDTO(true, articles));
 	}
 	
-	@GetMapping("/{title}")
+	@GetMapping("/core/{title}")
 	public ResponseEntity<ArticolDTO> getArticle(@PathVariable String title) {
 		List<Articol> articles = this.articolService.getAllArticles();
 		Optional<Articol> result = articles.stream().filter(article -> article.getTitlu().equals(title)).findFirst();
@@ -35,7 +35,7 @@ public class ArticolController {
 		}
 		return ResponseEntity.ok(new ArticolDTO(true, result));
 	}
-	@GetMapping("/alltitles/{title}")
+	@GetMapping("/core/alltitles/{title}")
 	public ResponseEntity<ArticolDTO> getAllTitles(@PathVariable String title) {
 		List<Articol> articles = this.articolService.getAllArticles();
 		List<String> result = articles.stream()
@@ -48,7 +48,7 @@ public class ArticolController {
 		return ResponseEntity.ok(new ArticolDTO(true, result));
 	}
 	
-	@GetMapping("/alldomains")
+	@GetMapping("/core/alldomains")
 	public ResponseEntity<ArticolDTO> getDomains() {
 		List<Articol> articles = this.articolService.getAllArticles();
 		List<String> result = articles.stream()
@@ -60,7 +60,7 @@ public class ArticolController {
 		return ResponseEntity.ok(new ArticolDTO(true, result));
 	}
 	
-	@GetMapping("/articole-domeniu/{domeniu}")
+	@GetMapping("/core/articole-domeniu/{domeniu}")
 	public ResponseEntity<ArticolDTO> getArticlesByDomain(@PathVariable String domeniu) {
 		List<Articol> articles = this.articolService.getAllArticles();
 		List<Articol> result = articles.stream()
@@ -72,13 +72,13 @@ public class ArticolController {
 		return ResponseEntity.ok(new ArticolDTO(true, result));
 	}
 	
-	@PostMapping("/create")
+	@PostMapping("/core/create")
 	public ResponseEntity<ArticolDTO> createArticle(@RequestBody Articol article) {
 		Object response = this.articolService.createArticle(article);
 		return ResponseEntity.ok((ArticolDTO) response);
 	}
 	
-	@PostMapping("/update-articol")
+	@PostMapping("/core/update-articol")
 	public ResponseEntity<ArticolDTO> updateArticle(@RequestBody Articol article) {
 		Object response = this.articolService.updateArticol(article);
 		return ResponseEntity.ok((ArticolDTO) response);
