@@ -1,0 +1,67 @@
+<header>
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" [routerLink]="['/']">Enciclopedie Online</a>
+
+      <!-- Toggle button -->
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>
+          <li *ngIf="userLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/create-articol']">Creaza articol</a>
+          </li>
+          <li *ngIf="!userLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
+          </li>
+          <li *ngIf="!userLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/register']">Register</a>
+          </li>
+          <!--Search bar-->
+          <li class="nav-item position-relative">
+            <div class="input-group w-auto">
+              <input #input type="search"
+                     class="form-control"
+                     placeholder="Cauta articol dupa titlu"
+                     aria-label="Search" />
+              <button class="btn btn-outline-primary" type="button" (click)="search(input.value)">
+                Search
+              </button>
+            </div>
+            <div class="position-absolute">
+              <ul class="list-unstyled" *ngFor="let titlu of articole">
+                <li>
+                  <a class="list-group-item" href="{{ generateLinkFromTitle(titlu) }}">{{titlu}}</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!--Search bar-->
+          <li *ngIf="userLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']" (click)="logout()">Log Out</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    <!--TODO: de facut dropdown la searchbar cu titlurile sugerate atunci cand tastezi-->
+
+
+
+  </nav>
+</header>
