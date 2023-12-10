@@ -3,6 +3,7 @@ package com.example.demo.integration.articol;
 import com.example.demo.dto.ArticolResponseDTO;
 import com.example.demo.model.Articol;
 import com.example.demo.repository.ArticolRepository;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +18,8 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ArticolControllerTest {
+@Tag("IT")
+public class ArticolControllerTestIT {
 	
 	@LocalServerPort
 	private int port;

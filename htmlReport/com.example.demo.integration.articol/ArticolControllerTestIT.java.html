@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ArticolControllerTestIT.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.integration.articol</a> &gt; <span class="el_source">ArticolControllerTestIT.java</span></div><h1>ArticolControllerTestIT.java</h1><pre class="source lang-java linenums">package com.example.demo.integration.articol;
+
+import com.example.demo.dto.ArticolResponseDTO;
+import com.example.demo.model.Articol;
+import com.example.demo.repository.ArticolRepository;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Tag(&quot;IT&quot;)
+<span class="fc" id="L22">public class ArticolControllerTestIT {</span>
+	
+	@LocalServerPort
+	private int port;
+	
+	@Autowired
+	private TestRestTemplate restTemplate;
+	
+	@Autowired
+	private ArticolRepository articolRepository;
+	
+	
+	@Test
+	void testGetAllArticles() {
+<span class="fc" id="L36">		ResponseEntity&lt;ArticolResponseDTO&gt; response = restTemplate.getForEntity(</span>
+				&quot;http://localhost:&quot; + port + &quot;/core/all&quot;, ArticolResponseDTO.class);
+		
+<span class="fc" id="L39">		assertEquals(HttpStatus.OK, response.getStatusCode());</span>
+<span class="fc" id="L40">		assertTrue(response.getBody().isSuccess());</span>
+		// Add more assertions based on your expected response
+<span class="fc" id="L42">	}</span>
+	
+	@Test
+	void testGetDomains() {
+<span class="fc" id="L46">		ResponseEntity&lt;ArticolResponseDTO&gt; response = restTemplate.getForEntity(</span>
+				&quot;http://localhost:&quot; + port + &quot;/core/alldomains&quot;, ArticolResponseDTO.class);
+		
+<span class="fc" id="L49">		assertEquals(HttpStatus.OK, response.getStatusCode());</span>
+<span class="fc" id="L50">		assertEquals(true, response.getBody().isSuccess());</span>
+		// Add more assertions based on your expected response
+<span class="fc" id="L52">	}</span>
+	
+	@Test
+	void testGetArticleByTitle() {
+<span class="fc" id="L56">		Random rand = new Random();</span>
+<span class="fc" id="L57">		String randValue = String.valueOf(rand.nextInt(1000));</span>
+<span class="fc" id="L58">		Articol createdArticol = new Articol();</span>
+<span class="fc" id="L59">		createdArticol.setTitlu(&quot;Test Title&quot; + randValue);</span>
+<span class="fc" id="L60">		articolRepository.save(createdArticol);</span>
+		
+<span class="fc" id="L62">		Articol expectedArticol = articolRepository.findByTitlu(&quot;Test Title&quot; + randValue);</span>
+		
+<span class="fc" id="L64">		ResponseEntity&lt;ArticolResponseDTO&gt; response = restTemplate.getForEntity(</span>
+				&quot;http://localhost:&quot; + port + &quot;/core/{title}&quot;, ArticolResponseDTO.class, &quot;Test Title&quot; + randValue);
+		
+<span class="fc" id="L67">		LinkedHashMap&lt;String, String&gt; actualArticol = (LinkedHashMap&lt;String, String&gt;) response.getBody().getMessage();</span>
+		
+		// Step 4: Assert that the response contains the expected Articol data
+<span class="fc" id="L70">		assertEquals(HttpStatus.OK, response.getStatusCode());</span>
+<span class="fc" id="L71">		assertTrue(response.getBody().isSuccess());</span>
+<span class="fc" id="L72">		assertNotNull(response.getBody().getMessage());</span>
+<span class="fc" id="L73">		assertEquals(expectedArticol.getTitlu(), actualArticol.get(&quot;titlu&quot;));</span>
+<span class="fc" id="L74">		assertEquals(expectedArticol.getId(), actualArticol.get(&quot;id&quot;));</span>
+		
+<span class="fc" id="L76">		articolRepository.delete(createdArticol);</span>
+<span class="fc" id="L77">	}</span>
+	
+	@Test
+	void testGetAllDomains() {
+<span class="fc" id="L81">		Random rand = new Random();</span>
+<span class="fc" id="L82">		String randValue = String.valueOf(rand.nextInt(1000));</span>
+<span class="fc" id="L83">		Articol createdArticol = new Articol();</span>
+<span class="fc" id="L84">		createdArticol.setTitlu(&quot;Test Title&quot; + randValue);</span>
+<span class="fc" id="L85">		createdArticol.setCategorie(&quot;categorie&quot; + randValue);</span>
+<span class="fc" id="L86">		articolRepository.save(createdArticol);</span>
+		
+<span class="fc" id="L88">		Articol expectedArticol = articolRepository.findByTitlu(&quot;Test Title&quot; + randValue);</span>
+		
+<span class="fc" id="L90">		ResponseEntity&lt;ArticolResponseDTO&gt; response = restTemplate.getForEntity(</span>
+				&quot;http://localhost:&quot; + port + &quot;/core/alldomains&quot;, ArticolResponseDTO.class);
+		
+<span class="fc" id="L93">		ArrayList actualArticol = (ArrayList) response.getBody().getMessage();</span>
+		
+<span class="fc" id="L95">		assertEquals(HttpStatus.OK, response.getStatusCode());</span>
+<span class="fc" id="L96">		assertTrue(response.getBody().isSuccess());</span>
+<span class="fc" id="L97">		assertNotNull(response.getBody().getMessage());</span>
+<span class="fc" id="L98">		assertTrue(actualArticol.contains(expectedArticol.getCategorie()));</span>
+		
+<span class="fc" id="L100">		articolRepository.delete(createdArticol);</span>
+<span class="fc" id="L101">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
