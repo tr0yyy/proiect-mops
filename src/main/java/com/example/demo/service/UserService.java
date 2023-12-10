@@ -15,18 +15,16 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public final UserRepository userRepository;
+    public PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getAllUsers() {

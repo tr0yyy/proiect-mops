@@ -17,9 +17,6 @@ public class MockService {
 
     public Articol insertDemoMocksInDb() {
         try {
-            this.userService.userRepository.deleteAll();
-            this.articolService.articolRepository.deleteAll();
-
             String user = "admin";
             String password = "password123";
             String email = "lalala@gmail.com";
