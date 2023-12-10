@@ -32,10 +32,11 @@ public class AppConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers("/core/**")
+                        .ignoringRequestMatchers("/core/**", "/dev/**")
                 );
 
         http.authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/dev/**").permitAll()
                 .requestMatchers("/core/**").permitAll());
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

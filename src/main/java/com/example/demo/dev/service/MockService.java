@@ -1,8 +1,10 @@
-package com.example.demo.service;
+package com.example.demo.dev.service;
 
 import com.example.demo.model.Articol;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
+import com.example.demo.service.ArticolService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,6 @@ public class MockService {
 
     public Articol insertDemoMocksInDb() {
         try {
-            this.userService.userRepository.deleteAll();
-            this.articolService.articolRepository.deleteAll();
-
             String user = "admin";
             String password = "password123";
             String email = "lalala@gmail.com";

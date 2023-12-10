@@ -1,8 +1,8 @@
-package com.example.demo.controller;
+package com.example.demo.dev.controller;
 
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.model.Articol;
-import com.example.demo.service.MockService;
+import com.example.demo.dev.service.MockService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ public class MockController {
         this.mockService = mockService;
     }
 
-    @PostMapping("/core/mock-entries")
+    @PostMapping("/dev/mock-entries")
     public ResponseEntity<ResponseDto> mockEntries() {
         Articol articol = this.mockService.insertDemoMocksInDb();
         if (articol == null) {

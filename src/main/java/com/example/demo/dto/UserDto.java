@@ -7,4 +7,11 @@ public class UserDto {
     public String password;
     public String email;
     public String role;
+
+    public UserDto(String username, String password, String email, String role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 }

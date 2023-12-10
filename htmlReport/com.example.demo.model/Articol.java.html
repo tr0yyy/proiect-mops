@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Articol.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jacoco Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.model</a> &gt; <span class="el_source">Articol.java</span></div><h1>Articol.java</h1><pre class="source lang-java linenums">package com.example.demo.model;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.Date;
+
+@Document(collection = &quot;articole&quot;)
+public class Articol {
+    @Id
+    private String id; // MongoDB will generate ObjectId
+
+    @DBRef
+    private User autor;
+
+    private String categorie;
+
+    private String titlu;
+
+    private String continut;
+
+    private Date dataCreari;
+
+    private Date dataUltimeiModificari;
+
+    private String versiune;
+
+<span class="fc" id="L30">    public Articol(String id, User autor, String categorie, String titlu, String continut, Date dataCreari, Date dataUltimeiModificari, String versiune) {</span>
+<span class="fc" id="L31">        this.id = id;</span>
+<span class="fc" id="L32">        this.autor = autor;</span>
+<span class="fc" id="L33">        this.categorie = categorie;</span>
+<span class="fc" id="L34">        this.titlu = titlu;</span>
+<span class="fc" id="L35">        this.continut = continut;</span>
+<span class="fc" id="L36">        this.dataCreari = dataCreari;</span>
+<span class="fc" id="L37">        this.dataUltimeiModificari = dataUltimeiModificari;</span>
+<span class="fc" id="L38">        this.versiune = versiune;</span>
+<span class="fc" id="L39">    }</span>
+
+<span class="fc" id="L41">    public Articol() {</span>
+<span class="fc" id="L42">    }</span>
+
+    public String getId() {
+<span class="fc" id="L45">        return id;</span>
+    }
+
+    public void setId(String id) {
+<span class="nc" id="L49">        this.id = id;</span>
+<span class="nc" id="L50">    }</span>
+
+    public User getAutor() {
+<span class="fc" id="L53">        return autor;</span>
+    }
+
+    public void setAutor(User autor) {
+<span class="fc" id="L57">        this.autor = autor;</span>
+<span class="fc" id="L58">    }</span>
+
+    public String getCategorie() {
+<span class="fc" id="L61">        return categorie;</span>
+    }
+
+    public void setCategorie(String categorie) {
+<span class="fc" id="L65">        this.categorie = categorie;</span>
+<span class="fc" id="L66">    }</span>
+
+    public String getTitlu() {
+<span class="fc" id="L69">        return titlu;</span>
+    }
+
+    public void setTitlu(String titlu) {
+<span class="fc" id="L73">        this.titlu = titlu;</span>
+<span class="fc" id="L74">    }</span>
+
+    public String getContinut() {
+<span class="fc" id="L77">        return continut;</span>
+    }
+
+    public void setContinut(String continut) {
+<span class="fc" id="L81">        this.continut = continut;</span>
+<span class="fc" id="L82">    }</span>
+
+    public Date getDataCreari() {
+<span class="fc" id="L85">        return dataCreari;</span>
+    }
+
+    public void setDataCreari(Date dataCreari) {
+<span class="fc" id="L89">        this.dataCreari = dataCreari;</span>
+<span class="fc" id="L90">    }</span>
+
+    public Date getDataUltimeiModificari() {
+<span class="fc" id="L93">        return dataUltimeiModificari;</span>
+    }
+
+    public void setDataUltimeiModificari(Date dataUltimeiModificari) {
+<span class="fc" id="L97">        this.dataUltimeiModificari = dataUltimeiModificari;</span>
+<span class="fc" id="L98">    }</span>
+
+    public String getVersiune() {
+<span class="fc" id="L101">        return versiune;</span>
+    }
+
+    public void setVersiune(String versiune) {
+<span class="fc" id="L105">        this.versiune = versiune;</span>
+<span class="fc" id="L106">    }</span>
+
+    @Override
+    public String toString() {
+<span class="nc" id="L110">        return &quot;Articol{&quot; +</span>
+                &quot;id='&quot; + id + '\'' +
+<span class="nc" id="L112">                &quot;, autor=&quot; + autor.getUsername() +</span>
+                &quot;, categorie='&quot; + categorie + '\'' +
+                &quot;, titlu='&quot; + titlu + '\'' +
+                &quot;, continut='&quot; + continut + '\'' +
+                &quot;, dataCreari=&quot; + dataCreari +
+                &quot;, dataUltimeiModificari=&quot; + dataUltimeiModificari +
+                &quot;, versiune='&quot; + versiune + '\'' +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
