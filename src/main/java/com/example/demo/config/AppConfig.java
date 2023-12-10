@@ -37,6 +37,8 @@ public class AppConfig {
 
         http.authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/core/test").authenticated()
+                .requestMatchers("/core/create").authenticated()
+                .requestMatchers("/core/update-articol").authenticated()
                 .requestMatchers("/core/register").permitAll()
                 .requestMatchers("/core/login").permitAll());
 
