@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.component.JwtTokenUtil;
 import com.example.demo.dto.UserDto;
-import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,16 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
+    public JwtTokenUtil jwtTokenUtil;
     public PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     public List<User> getAllUsers() {
@@ -54,7 +53,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean authenticateUser(User user, String specifiedPassword) {
+    public boolean validatePassword(User user, String specifiedPassword) {
        return passwordEncoder.matches(specifiedPassword, user.getPassword());
     }
 
@@ -68,7 +67,7 @@ public class UserService {
 
         User user = this.insertUser(model.username, model.password, model.email, model.role);
 
-        return user != null ? login(model) : null;
+        return user != null ? generateTokenForAuthentication(user) : null;
     }
 
     public String login(UserDto model) {
@@ -78,10 +77,19 @@ public class UserService {
             return null;
         }
 
-        if (!this.authenticateUser(existingUser.get(), model.password)) {
+        if (!this.validatePassword(existingUser.get(), model.password)) {
             return null;
         }
 
-        return jwtTokenUtil.generateToken(existingUser.get());
+        return generateTokenForAuthentication(existingUser.get());
+
+    }
+
+    public String generateTokenForAuthentication(User user) {
+        return jwtTokenUtil.generateToken(user);
+    }
+
+    public void deleteUser(String username) {
+        userRepository.deleteAllByUsername(username);
     }
 }
