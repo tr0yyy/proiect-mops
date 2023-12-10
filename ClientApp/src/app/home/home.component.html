@@ -1,0 +1,32 @@
+<h1 class="center">Wikipedia - Proiect Dezvoltarea Aplicațiilor Web</h1>
+<p class="center">Pe prima pagină vei găsi ultimele 50 de articole apărute.</p>
+<p class="center">În stânga poți accesa articolele în funcție de domenii.</p>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <p> Listă de domenii disponibile</p>
+      <mat-list *ngFor="let domeniu of domenii">
+        <mat-list-item class="row"><a href="{{ generateLinkFromDomain(domeniu) }}" >{{domeniu}}</a></mat-list-item>
+      </mat-list>
+    </div>
+    <div class="col-10">
+      <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="articole">
+        <thead>
+          <tr>
+            <th>Nume Articol</th>
+            <th>Domeniu</th>
+            <th>Data adăugării</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let articol of articoleFiltrate">
+            <td><a href="{{ articol.link }}">{{ articol.titlu }}</a></td>
+            <td>{{ articol.categorie }}</td>
+            <td>{{ articol.dataCreari }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
