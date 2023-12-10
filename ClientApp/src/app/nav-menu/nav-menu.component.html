@@ -4,7 +4,7 @@
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Navbar brand -->
-      <a class="navbar-brand" [routerLink]="['/']">WikipediaDAW</a>
+      <a class="navbar-brand" [routerLink]="['/']">Enciclopedie Online</a>
 
       <!-- Toggle button -->
       <button class="navbar-toggler"
@@ -23,7 +23,7 @@
           <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="userLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/create-articol']">Creaza articol</a>
           </li>
           <li *ngIf="!userLoggedIn" class="nav-item" [routerLinkActive]="['link-active']">
@@ -60,7 +60,7 @@
       </div>
     </div>
     <!--TODO: de facut dropdown la searchbar cu titlurile sugerate atunci cand tastezi-->
-    
+
 
 
   </nav>
