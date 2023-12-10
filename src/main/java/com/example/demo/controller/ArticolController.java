@@ -7,8 +7,10 @@ import com.example.demo.service.ArticolService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,19 +49,21 @@ public class ArticolController {
 		}
 		return ResponseEntity.ok(new ArticolDTO(true, result));
 	}
-	
+
 	@GetMapping("/core/alldomains")
 	public ResponseEntity<ArticolDTO> getDomains() {
 		List<Articol> articles = this.articolService.getAllArticles();
-		List<String> result = articles.stream()
+		Set<String> uniqueCategories = articles.stream()
 				.map(Articol::getCategorie)
-				.collect(Collectors.toList());
+				.collect(Collectors.toSet());
+		List<String> result = new ArrayList<>(uniqueCategories);
 		if (result.isEmpty()) {
 			return ResponseEntity.ok(new ArticolDTO(false, result));
 		}
 		return ResponseEntity.ok(new ArticolDTO(true, result));
 	}
-	
+
+
 	@GetMapping("/core/articole-domeniu/{domeniu}")
 	public ResponseEntity<ArticolDTO> getArticlesByDomain(@PathVariable String domeniu) {
 		List<Articol> articles = this.articolService.getAllArticles();

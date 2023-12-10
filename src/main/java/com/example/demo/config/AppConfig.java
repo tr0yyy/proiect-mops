@@ -40,7 +40,9 @@ public class AppConfig {
                 .requestMatchers("/core/create").authenticated()
                 .requestMatchers("/core/update-articol").authenticated()
                 .requestMatchers("/core/register").permitAll()
-                .requestMatchers("/core/login").permitAll());
+                .requestMatchers("/core/login").permitAll()
+                .requestMatchers("/core/all").permitAll()
+                .requestMatchers("/core/alldomains").permitAll());
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
